@@ -42,12 +42,30 @@ page.onConfirm =
 page.onPrompt =
 page.onError = noop;
 
+page.settings.resourceTimeout = 5000; // 5 seconds
+
+page.onResourceTimeout = function(e) {
+  console.log(e.errorCode);   // it'll probably be 408 
+  console.log(e.errorString); // it'll probably be 'Network timeout on resource'
+  console.log(e.url);         // the url whose request timed out
+  phantom.exit(1);
+};
+
 /**
  * Open and render page.
  */
 
+var pageTimeout = setTimeout(function() {
+  phantom.exit();
+}, timeout);
+
 page.open(url, function (status) {
-  if (status !== 'success') throw new Error('Unable to load');
+  clearTimeout(pageTimeout)
+
+  if (status !== 'success') {
+    return phantom.exit(1);
+  }
+
   window.setTimeout(function () {
     page.evaluate(function() {
       if (!document.body.style.background) {
@@ -56,6 +74,6 @@ page.open(url, function (status) {
     });
     console.log(page.renderBase64(format));
     phantom.exit();
-  }, timeout);
-});
+  }, 0);
 
+});
