@@ -42,7 +42,7 @@ page.onConfirm =
 page.onPrompt =
 page.onError = noop;
 
-page.settings.resourceTimeout = 5000; // 5 seconds
+page.settings.resourceTimeout = 70000; // 5 seconds
 
 page.onResourceTimeout = function(e) {
   console.log(e.errorCode);   // it'll probably be 408 
