@@ -175,7 +175,7 @@ Screenshot.prototype.capture = function(fn) {
 
   // console.log('phantomjs ' + args.join(' '), opts)
 
-  var timeout = null
+  // var timeout = null
 
   exec('phantomjs ' + args.join(' '), opts, function (err, stdout) {
     clearTimeout(timeout)
@@ -183,9 +183,9 @@ Screenshot.prototype.capture = function(fn) {
     return;
   });
 
-  timeout = setTimeout(function() {
-    fn("timeout error", "");
-    return
-  }, 7000);
+  // timeout = setTimeout(function() {
+    // fn("timeout error", "");
+    // return
+  // }, 7000);
 
 };
