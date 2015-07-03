@@ -177,12 +177,15 @@ Screenshot.prototype.capture = function(fn) {
 
   var timeout = null
 
-  require('child_process').spawn('phantomjs ' + args.join(' '), opts, function (err, stdout) {
+  exec('phantomjs ' + args.join(' '), opts, function (err, stdout) {
     clearTimeout(timeout)
     fn(err, stdout && new Buffer(stdout, 'base64'));
+    return;
   });
 
   timeout = setTimeout(function() {
-    return fn("timeout error", "");
+    fn("timeout error", "");
+    return
   }, 7000);
+
 };
