@@ -42,7 +42,7 @@ page.onConfirm =
 page.onPrompt =
 page.onError = noop;
 
-page.settings.resourceTimeout = 70000; // 5 seconds
+page.settings.resourceTimeout = 10000; // 5 seconds
 
 page.onResourceTimeout = function(e) {
   console.log(e.errorCode);   // it'll probably be 408 
@@ -59,12 +59,6 @@ var pageTimeout = setTimeout(function() {
   phantom.exit();
 }, timeout);
 
-
-var masterTimeout = null
-masterTimeout = setTimeout(function() {
-  phantom.exit();
-}, 7000);
-
 page.open(url, function (status) {
   clearTimeout(pageTimeout)
 
@@ -74,7 +68,6 @@ page.open(url, function (status) {
 
   window.setTimeout(function () {
     page.evaluate(function() {
-    clearTimeout(masterTimeout);
 
       if (!document.body.style.background) {
         document.body.style.backgroundColor = 'white';
