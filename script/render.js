@@ -57,7 +57,7 @@ page.onResourceTimeout = function(e) {
 
 var pageTimeout = setTimeout(function() {
   phantom.exit();
-}, timeout);
+}, 10000);
 
 page.open(url, function (status) {
   clearTimeout(pageTimeout)
