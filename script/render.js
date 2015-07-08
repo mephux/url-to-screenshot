@@ -55,28 +55,22 @@ page.onResourceTimeout = function(e) {
  * Open and render page.
  */
 
-var pageTimeout = setTimeout(function() {
-  phantom.exit();
-}, 10000);
-
 page.open(url, function (status) {
-  clearTimeout(pageTimeout)
 
   if (status !== 'success') {
     return phantom.exit(1);
   }
 
-  window.setTimeout(function () {
-    page.evaluate(function() {
+  page.evaluate(function() {
 
-      if (!document.body.style.background) {
-        document.body.style.backgroundColor = 'white';
-      }
-    });
-    console.log(page.renderBase64(format));
-    phantom.exit();
-  }, 0);
+    if (!document.body.style.background) {
+      document.body.style.backgroundColor = 'white';
+    }
+  });
 
+  console.log(page.renderBase64(format));
+
+  phantom.exit();
 });
 
 

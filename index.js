@@ -170,19 +170,11 @@ Screenshot.prototype.capture = function(fn) {
   }
 
   var opts = {
-    maxBuffer: Infinity
+    maxBuffer: Infinity,
+    timeout: 7000,
   };
 
-  // console.log('phantomjs ' + args.join(' '), opts)
-
-  var timeout = null
-
-  timeout = setTimeout(function() {
-    return fn("timeout error", "");
-  }, 7000);
-
   exec('phantomjs ' + args.join(' '), opts, function (err, stdout) {
-    clearTimeout(timeout)
-    return fn(err, stdout && new Buffer(stdout, 'base64'));
+    fn(err, stdout && new Buffer(stdout, 'base64'));
   });
 };
