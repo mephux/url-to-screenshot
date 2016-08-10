@@ -20,7 +20,7 @@ function Screenshot(url, opts) {
   this.format('png');
   this.ignoreSslErrors(false);
   this.sslCertificatesPath(null);
-  this.sslProtocol('sslv3');
+  this.sslProtocol('any');
 
   Object.keys(opts || {}).forEach(function (key) {
     if (typeof this[key] == 'function') this[key](opts[key]);
