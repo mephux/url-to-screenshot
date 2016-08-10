@@ -39,6 +39,11 @@ Screenshot.prototype.width = function(width) {
   return this;
 };
 
+Screenshot.prototype.debug = function(debug) {
+  this._debug = debug || false;
+  return this;
+};
+
 /**
  * Set `height`.
  *
@@ -165,18 +170,22 @@ Screenshot.prototype.capture = function(fn) {
   ];
 
 
+  if (this._debug) {
+    args.unshift("--debug=" + this._debug)
+  }
+
   if (this._proxy) {
-    args.push("--proxy=" + this._proxy)
+    args.unshift("--proxy=" + this._proxy)
   }
   
   if (this._ignoreSslErrors) {
-    args.push('--ignore-ssl-errors');
+    args.unshift('--ignore-ssl-errors');
   }
   if (this._sslCertificatesPath) {
-    args.push('--ssl-certificates-path=' + this._sslCertificatesPath);
+    args.unshift('--ssl-certificates-path=' + this._sslCertificatesPath);
   }
   if (this._sslProtocol) {
-    args.push('--ssl-protocol=' + this._sslProtocol);
+    args.unshift('--ssl-protocol=' + this._sslProtocol);
   }
 
   var opts = {
@@ -184,7 +193,7 @@ Screenshot.prototype.capture = function(fn) {
     timeout: 7000,
   };
 
-  console.log(args.join(' '), opts);
+  console.log(args, args.join(' '), opts);
 
   exec('phantomjs ' + args.join(' '), opts, function (err, stdout) {
     fn(err, stdout && new Buffer(stdout, 'base64'));
