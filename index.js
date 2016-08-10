@@ -98,6 +98,11 @@ Screenshot.prototype.ignoreSslErrors = function() {
   return this;
 };
 
+Screenshot.prototype.proxy = function(proxy) {
+  this._proxy = proxy;
+  return this;
+};
+
 /**
  * Set the SSL certificates path for PhantomJS.
  *
@@ -158,6 +163,11 @@ Screenshot.prototype.capture = function(fn) {
     __dirname + '/script/render.js', this.url,
     this._width, this._height, this._timeout, this._format, this._clip
   ];
+
+
+  if (this._proxy) {
+    args.push("--proxy=" + this._proxy)
+  }
   
   if (this._ignoreSslErrors) {
     args.push('--ignore-ssl-errors');
