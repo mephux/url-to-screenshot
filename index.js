@@ -193,8 +193,6 @@ Screenshot.prototype.capture = function(fn) {
     timeout: 7000,
   };
 
-  console.log(args, args.join(' '), opts);
-
   exec('phantomjs ' + args.join(' '), opts, function (err, stdout) {
     fn(err, stdout && new Buffer(stdout, 'base64'));
   });
