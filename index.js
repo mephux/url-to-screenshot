@@ -179,7 +179,7 @@ Screenshot.prototype.capture = function(fn) {
   }
   
   if (this._ignoreSslErrors) {
-    args.unshift('--ignore-ssl-errors');
+    args.unshift('--ignore-ssl-errors=true');
   }
   if (this._sslCertificatesPath) {
     args.unshift('--ssl-certificates-path=' + this._sslCertificatesPath);
